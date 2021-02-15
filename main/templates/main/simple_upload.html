@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pillow</title>
+
+</head>
+<body>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+
+<h3> slected frame </h3>
+  {% if frame_img %}
+    <img height="100%" src="{{ frame_img.frame.url }}">
+  {% endif %}
+<h3> User Upload </h3>
+
+  {% if instance %}
+    <img height="100%" src="{{ instance.img.url }}">
+  {% endif %}
+
+
+</body>
+</html>
