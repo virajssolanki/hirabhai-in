@@ -25,7 +25,7 @@ SECRET_KEY = 'gc-9ut1^^#8@+2lb$^6ph)=fvw+!drexz94tzm=95e6fm@o2i3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['photofrms.herokuapp.com']
 
 
 # Application definition
