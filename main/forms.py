@@ -11,3 +11,7 @@ class UimgForm(forms.Form):
     y = forms.FloatField(widget=forms.HiddenInput())
     width = forms.FloatField(widget=forms.HiddenInput())
     height = forms.FloatField(widget=forms.HiddenInput())
+
+    def __init__(self, *args, **kwargs):
+        super(UimgForm, self).__init__(*args, **kwargs)
+        self.fields['img'].label = "Click here to choose photo"

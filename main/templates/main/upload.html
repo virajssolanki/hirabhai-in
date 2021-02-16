@@ -3,13 +3,60 @@
     {% block content %}
 
           {% if f_instance %}
-          <div class="register-photo">
-             <div class="form-container">
-               <img width="70%" src="{{ f_instance.m_img.url }}">
-             </div>
-          </div>
+    <div id="main">
+        <div id="head">
+            <h1 id="step">🙌 </h1>
+            <h1 id="select-frame">તમારો ફોટો તૈયાર છે, <br>ડાઉનલોડ કરો અને શેર કરો</h1>
+        </div>
+        <div></div>
+    </div>
+
+       <div class="container mt-40">
+            <div class="row mt-30">
+                <div class="col-md-4 col-sm-6">
+                    <div class="box14">
+                        <img src="{{ f_instance.m_img.url }}" alt="">
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-12">
+                        <a href="{{ f_instance.m_img.url }}" download="myphoto">
+                        <button type="button" class="btn btn-primary btn-block download"> 
+                        <i class="fa fa-download" aria-hidden="true"></i> Download
+                        </button>
+                        </a>
+                      </div>
+
+                    </div>
+
+                </div>
+
+<script>
+function download(url, filename) {
+fetch(url).then(function(t) {
+    return t.blob().then((b)=>{
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(b);
+        a.setAttribute("download", filename);
+        a.click();
+    }
+    );
+});
+}
+</script>
+            </div>
+        </div>
           
           {% else %}
+
+    <div id="main">
+        <div id="head">
+            <h1 id="step">📷</h1>
+            <h1 id="time-to-show">Upload your photo </h1>
+            <h1 id="select-frame">કૃપા કરીને તમારો ફોટો અપલોડ કરો</h1>
+        </div>
+        <div></div>
+    </div>
+
           <div class="register-photo">
               <div class="form-container">
                   <form method="post" enctype="multipart/form-data" id="formUpload">
@@ -25,9 +72,9 @@
         <div class="modal fade" id="modalCrop">
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header">
+              <!---<div class="modal-header">
                 <h4 class="modal-title">Crop the photo</h4>
-              </div>
+              </div>-->
               <div class="modal-body">
                 <img src="" id="image" style="max-width: 100%;">
               </div>
@@ -40,8 +87,7 @@
                     <span class="glyphicon glyphicon-zoom-out"></span>
                   </button>
                 </div>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary btn-block js-crop-and-upload">Crop and upload</button>
+                <button type="button" class="btn btn-primary btn-block js-crop-and-upload">Upload</button>
               </div>
             </div>
           </div>

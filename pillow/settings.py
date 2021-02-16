@@ -132,6 +132,9 @@ MEDIA_URL = '/media/'
 AWS_SECRET_ACCESS_KEY = 'aryW+GTrdT3pFz/HhvxpnehpbDw39319nWZlloUQ'
 AWS_ACCESS_KEY_ID = 'AKIARX2VT7HYL424KJOF'
 AWS_STORAGE_BUCKET_NAME = 'abhay-heroku-storage'
+AWS_S3_OBJECT_PARAMETERS = {
+    'ContentDisposition': 'attachments',
+}
 
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
