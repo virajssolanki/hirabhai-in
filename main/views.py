@@ -33,9 +33,14 @@ def simple_upload(request, pk):
             i = Image.open(img)
             if i.mode != "RGB":
                 i.convert('RGB')
-            
+
+            frame_img_obj = Frame.objects.filter(id=pk).first().frame.file
+            mask_img_obj = Frame.objects.filter(id=pk).first().mask.file
+            f = Image.open(frame_img_obj)
+            m = Image.open(mask_img_obj).convert('L').resize(f.size)
+
             cropped_image = i.crop((x, y, w+x, h+y))
-            resized_image = cropped_image.resize((173, 198), Image.ANTIALIAS)
+            resized_image = cropped_image.resize((f.size), Image.ANTIALIAS)
             thumb_io = BytesIO()
             resized_image.save(thumb_io, format='PNG', quality=80)
             inmemory_uploaded_file = InMemoryUploadedFile(thumb_io, None, 'user_img.png', 
@@ -45,15 +50,15 @@ def simple_upload(request, pk):
             instance.save()
 
 
-            frame_img_obj = Frame.objects.filter(id=pk).first().frame.file
-            f = Image.open(frame_img_obj)
             if f.mode != "RGB":
                 f.convert('RGB')
 
             draw = ImageDraw.Draw(f)
             draw.text((5, 5), info ,(255,255,255))
 
-            f.paste(resized_image,(322,45))
+            f = Image.composite(resized_image, f, m)
+
+            #f.paste(resized_image,(322,45))
             thumb_io = BytesIO()
             f.save(thumb_io, format='PNG', quality=80)
             f_inmemory_uploaded_file = InMemoryUploadedFile(thumb_io, None, 'merge.png', 

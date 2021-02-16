@@ -1,0 +1,58 @@
+body {
+    background: #eaf2fb;
+}
+
+.navbar.navbar-light.navbar-expand-md.navigation-clean {
+    background-color: #f3f3f3;
+}
+
+#logo {
+    height: 5rem;
+}
+
+#hr {
+    margin-top: 0px;
+    border-width: 3px;
+    background-color: #FF9933;
+}
+
+#time-to-show {
+    font-size: 30px;
+    color: #212121;
+    text-align: center;
+}
+
+#select-frame {
+    font-size: 22px;
+    text-align: center;
+}
+
+@media (min-width: 300px) {
+    #time-to-show {
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 30px;
+        font-family: sans-serif;
+    }
+}
+
+@media (min-width: 300px) {
+    #select-frame {
+        font-size: 20px;
+        font-weight: 300;
+    }
+}
+
+#head {
+    padding: 24px 0px;
+}
+
+@media (min-width: 300px) {
+    #main {
+        padding: 0px 18px;
+    }
+}
+
+.modal-body {
+    padding: 0rem;
+}

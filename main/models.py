@@ -9,6 +9,7 @@ class Merged(models.Model):
 
 class Frame(models.Model):
     frame = models.ImageField(default='d.png', upload_to='frames_pic')
+    mask = models.ImageField(default='d.png', upload_to='mask_img')
 
     def __str__(self):
         return f'{self.id} frame'
@@ -18,4 +19,3 @@ class Uimg(models.Model):
 
     def __str__(self):
         return f'{self.id} user pic'
-        

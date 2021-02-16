@@ -1,6 +1,74 @@
-{% extends 'main/base.html' %}
+    {% extends "main/base.html" %}
+    {% load crispy_forms_tags %}
+    {% block content %}
 
-{% block javascript %}
+          {% if f_instance %}
+          <div class="register-photo">
+             <div class="form-container">
+               <img width="70%" src="{{ f_instance.m_img.url }}">
+             </div>
+          </div>
+          
+          {% else %}
+          <div class="register-photo">
+              <div class="form-container">
+                  <form method="post" enctype="multipart/form-data" id="formUpload">
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  </form>
+              </div>
+          </div>
+
+          {% endif %}
+
+        <!-- MODAL TO CROP THE IMAGE -->
+        <div class="modal fade" id="modalCrop">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Crop the photo</h4>
+              </div>
+              <div class="modal-body">
+                <img src="" id="image" style="max-width: 100%;">
+              </div>
+              <div class="modal-footer">
+                <div class="btn-group pull-left" role="group">
+                  <button type="button" class="btn btn-default js-zoom-in">
+                    <span class="glyphicon glyphicon-zoom-in"></span>
+                  </button>
+                  <button type="button" class="btn btn-default js-zoom-out">
+                    <span class="glyphicon glyphicon-zoom-out"></span>
+                  </button>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-block js-crop-and-upload">Crop and upload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<!--<div class="container">
+         CONTAINER TO DISPLAY THE CROPPED IMAGES 
+        <h3> Selected frame </h3>
+          {% if frame_img %}
+            <img height="500px" src="{{ frame_img.frame.url }}">
+          {% endif %}
+
+        <h3> User Image </h3>
+          {% if instance %}
+            <img height="500px" src="{{ instance.img.url }}">
+          {% endif %}
+        <br>
+
+        <h3> Merged Image </h3>
+          {% if instance %}
+            <img height="500px" src="{{ f_instance.m_img.url }}">
+          {% endif %}
+        <br>
+</div> -->
+    {% endblock content %}
+
+    {% block js %}
   <script>
     $(function () {
 
@@ -60,60 +128,4 @@
 
     });
   </script>
-{% endblock %}
-
-{% block content %}
-  <!-- FORM TO UPLOAD THE IMAGES -->
-  <form method="post" enctype="multipart/form-data" id="formUpload">
-    {% csrf_token %}
-    {{ form }}
-  </form>
-
-<!-- MODAL TO CROP THE IMAGE -->
-<div class="modal fade" id="modalCrop">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title">Crop the photo</h4>
-      </div>
-      <div class="modal-body">
-        <img src="" id="image" style="max-width: 100%;">
-      </div>
-      <div class="modal-footer">
-        <div class="btn-group pull-left" role="group">
-          <button type="button" class="btn btn-default js-zoom-in">
-            <span class="glyphicon glyphicon-zoom-in"></span>
-          </button>
-          <button type="button" class="btn btn-default js-zoom-out">
-            <span class="glyphicon glyphicon-zoom-out"></span>
-          </button>
-        </div>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
-        <button type="button" class="btn btn-primary js-crop-and-upload">Crop and upload</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- CONTAINER TO DISPLAY THE CROPPED IMAGES -->
-<h3> Selected frame </h3>
-  {% if frame_img %}
-    <img height="100%" src="{{ frame_img.frame.url }}">
-  {% endif %}
-
-<h3> User Image </h3>
-  {% if instance %}
-    <img height="100%" src="{{ instance.img.url }}">
-  {% endif %}
-<br>
-
-<h3> Merged Image </h3>
-  {% if instance %}
-    <img height="100%" src="{{ f_instance.m_img.url }}">
-  {% endif %}
-<br>
-
 {% endblock %}
