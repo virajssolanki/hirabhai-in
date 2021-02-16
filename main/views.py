@@ -24,11 +24,11 @@ def simple_upload(request, pk):
             y = form.cleaned_data.get('y')
             w = form.cleaned_data.get('width')
             h = form.cleaned_data.get('height')
-            name = form.cleaned_data.get('name')
-            village = form.cleaned_data.get('village')
-            number = form.cleaned_data.get('number')
-            nl = '\n'
-            info= f'Name: {name}{nl}Village: {village}'
+            #name = form.cleaned_data.get('name')
+            #village = form.cleaned_data.get('village')
+            #number = form.cleaned_data.get('number')
+            #nl = '\n'
+            #info= f'Name: {name}{nl}Village: {village}'
 
             i = Image.open(img)
             if i.mode != "RGB":
@@ -53,8 +53,8 @@ def simple_upload(request, pk):
             if f.mode != "RGB":
                 f.convert('RGB')
 
-            draw = ImageDraw.Draw(f)
-            draw.text((5, 5), info ,(255,255,255))
+            #draw = ImageDraw.Draw(f)
+            #draw.text((5, 5), info ,(255,255,255))
 
             f = Image.composite(resized_image, f, m)
 
