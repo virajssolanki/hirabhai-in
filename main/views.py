@@ -24,9 +24,9 @@ def simple_upload(request, pk):
             y = form.cleaned_data.get('y')
             w = form.cleaned_data.get('width')
             h = form.cleaned_data.get('height')
-            #name = form.cleaned_data.get('name')
-            #village = form.cleaned_data.get('village')
-            #number = form.cleaned_data.get('number')
+            name = form.cleaned_data.get('name')
+            village = form.cleaned_data.get('village')
+            number = form.cleaned_data.get('number')
             #nl = '\n'
             #info= f'Name: {name}{nl}Village: {village}'
 
@@ -65,6 +65,9 @@ def simple_upload(request, pk):
                                               'image/png', thumb_io.tell(), None)
             f_instance = Merged()
             f_instance.m_img = f_inmemory_uploaded_file
+            f_instance.name = name
+            f_instance.village = village
+            f_instance.number = number
             f_instance.save()
     else:
         form = UimgForm()

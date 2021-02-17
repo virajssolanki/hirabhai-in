@@ -3,7 +3,9 @@ from storages.backends.s3boto3 import S3Boto3Storage
 
 class Merged(models.Model):
     m_img = models.ImageField(default='d.png', upload_to='merged_pic')
-
+    name = models.CharField(max_length=50, blank=False, default='')
+    village = models.CharField(max_length=50, blank=False, default='')
+    number = models.CharField(max_length=10, blank=False, default='')
 
 class Frame(models.Model):
     frame = models.ImageField(default='d.png', upload_to='frames_pic')
