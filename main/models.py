@@ -7,6 +7,9 @@ class Merged(models.Model):
     village = models.CharField(max_length=50, blank=False, default='')
     number = models.CharField(max_length=10, blank=False, default='')
 
+    def __str__(self):
+        return f'{self.id} merged'
+
 class Frame(models.Model):
     frame = models.ImageField(default='d.png', upload_to='frames_pic')
     mask = models.ImageField(default='d.png', upload_to='mask_img')
