@@ -27,7 +27,7 @@ SECRET_KEY = 'gc-9ut1^^#8@+2lb$^6ph)=fvw+!drexz94tzm=95e6fm@o2i3'
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
 
-ALLOWED_HOSTS = ['photofrms.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
