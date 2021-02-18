@@ -6,14 +6,6 @@ body {
     background-color: #f3f3f3;
 }
 
-.modal-body {
-    height: 70vh;
-}
-
-.cropper-bg {
-    height: 70vh;
-}
-
 #logo {
     height: 5rem;
 }
