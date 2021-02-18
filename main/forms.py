@@ -32,7 +32,7 @@ class UimgForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(UimgForm, self).__init__(*args, **kwargs)
-        self.fields['img'].label = "ફોટો પસંદ કરવા માટે અહીં ક્લિક કરો"
+        self.fields['img'].label = "ફોટો પસંદ કરવા માટે નીચેનું બટન દબાવો"
         self.fields['name'].label = "તમારું નામ"
         self.fields['number'].label = "મોબાઇલ નંબર"
         self.fields['village'].label = "તમારું ગામ"
