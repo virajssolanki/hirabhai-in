@@ -24,7 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'gc-9ut1^^#8@+2lb$^6ph)=fvw+!drexz94tzm=95e6fm@o2i3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+
 
 ALLOWED_HOSTS = ['photofrms.herokuapp.com']
 
@@ -59,7 +60,10 @@ SECURE_SSL_REDIRECT = True
 CORS_REPLACE_HTTPS_REFERER      = False
 HOST_SCHEME                     = "http://"
 SECURE_PROXY_SSL_HEADER         = None
-SECURE_SSL_REDIRECT             = False
+if DEBUG == True:
+    SECURE_SSL_REDIRECT             = False
+else:
+    SECURE_SSL_REDIRECT             = True
 SESSION_COOKIE_SECURE           = False
 CSRF_COOKIE_SECURE              = False
 SECURE_HSTS_SECONDS             = None

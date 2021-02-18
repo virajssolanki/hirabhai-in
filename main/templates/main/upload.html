@@ -75,6 +75,19 @@ fetch(url).then(function(t) {
               </div>
           </div>
 
+        <div class="container">
+          <div class="row">
+          <div class="col-md-4 col-sm-4 col-12"></div>
+                      <div class="col-md-4 col-sm-4 col-12">
+                        <a href="{% url 'home' %}" download="myphoto">
+                        <button type="button" class="btn btn-secondary btn-block download"> 
+                        <i class="fa fa-external-link" aria-hidden="true"> </i> એક અલગ ફ્રેમ પસંદ કરો
+                        </button>
+                        </a>
+                      </div>
+           <div class="col-md-4 col-sm-4 col-12"></div>
+          </div>
+        </div>
           {% endif %}
 
         <!-- MODAL TO CROP THE IMAGE -->
