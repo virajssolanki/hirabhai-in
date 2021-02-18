@@ -18,10 +18,19 @@
                         <img src="{{ f_instance.m_img.url }}" alt="">
                     </div>
                     <div class="row">
+
                       <div class="col-md-12 col-sm-12 col-12">
                         <a href="{{ f_instance.m_img.url }}" download="myphoto">
                         <button type="button" class="btn btn-primary btn-block download"> 
-                        <i class="fa fa-download" aria-hidden="true"></i> Download
+                        <i class="fa fa-download" aria-hidden="true"></i> ડાઉનલોડ
+                        </button>
+                        </a>
+                      </div>
+
+                      <div class="col-md-12 col-sm-12 col-12">
+                        <a href="{% url 'home' %}" download="myphoto">
+                        <button style="margin-top: 1rem;" type="button" class="btn btn-primary btn-block download"> 
+                        <i class="fa fa-external-link" aria-hidden="true"></i> બીજો ફોટો બનાવો
                         </button>
                         </a>
                       </div>
@@ -51,8 +60,8 @@ fetch(url).then(function(t) {
     <div id="main">
         <div id="head">
             <h1 id="step">📷</h1>
-            <h1 id="time-to-show">Upload your photo and Details </h1>
-            <h1 id="select-frame">કૃપા કરીને તમારો ફોટો અપલોડ કરો</h1>
+            <h1 id="time-to-show">તમારો ફોટો અને વિગતો અપલોડ કરો </h1>
+            <h1 id="select-frame">Upload your photo and Details</h1>
         </div>
         <div></div>
     </div>
@@ -88,7 +97,7 @@ fetch(url).then(function(t) {
                   </button>
                 </div>
                 <button type="button" class="btn btn-primary btn-block download js-crop-and-upload"> 
-                        <i class="fa fa-upload" aria-hidden="true"></i> Upload
+                        <i class="fa fa-upload" aria-hidden="true"></i> અપલોડ કરો
                 </button>
               </div>
             </div>
