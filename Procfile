@@ -1,1 +1,1 @@
-web: gunicorn pillow.wsgir --timeout 15 --keep-alive 5 --log-level debug
+web: gunicorn pillow.wsgir --timeout 50 --keep-alive 5 --log-level debug
