@@ -1,1 +1,1 @@
-web: gunicorn pillow.wsgi
+web: gunicorn pillow.wsgir --timeout 15
