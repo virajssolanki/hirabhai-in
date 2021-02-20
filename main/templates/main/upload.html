@@ -2,7 +2,7 @@
     {% load crispy_forms_tags %}
     {% block content %}
 
-          {% if f_instance %}
+          {% if img_data %}
     <div id="main">
         <div id="head">
             <h1 id="step">🙌 </h1>
@@ -15,12 +15,12 @@
             <div class="row mt-30">
                 <div class="col-md-4 col-sm-6">
                     <div class="box14">
-                        <img src="{{ f_instance.m_img.url }}" alt="">
+                        <img src="{{ img_data }}" alt="">
                     </div>
                     <div class="row">
 
                       <div class="col-md-12 col-sm-12 col-12">
-                        <a href="{{ f_instance.m_img.url }}" download="myphoto">
+                        <a href="{{ img_data }}" download="myphoto">
                         <button type="button" class="btn btn-primary btn-block download"> 
                         <i class="fa fa-download" aria-hidden="true"></i> ડાઉનલોડ કરો
                         </button>
@@ -159,8 +159,8 @@ fetch(url).then(function(t) {
         $image.cropper({
           viewMode: 1,
           aspectRatio: 1/1,
-          minCropBoxWidth: 173,
-          minCropBoxHeight: 198,
+          minCropBoxWidth: 200,
+          minCropBoxHeight: 200,
           ready: function () {
             $image.cropper("setCanvasData", canvasData);
             $image.cropper("setCropBoxData", cropBoxData);

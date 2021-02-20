@@ -10,18 +10,22 @@
         <div></div>
     </div>
 
-       <div class="container mt-40">
-            <div class="row mt-30">
+    <div class="container mt-40">
+        <div class="row mt-30">
  {% for i in frames %}
-                <div class="col-md-4 col-sm-6">
-                    <div class="box14">
-                    <a href="{% url 'upload' i.id %}">
-                        <img src="{{ i.frame.url }}" alt="">
-                        <div class="box-content">
-                        </div>
-                    </a>
+            <div class="col-md-4 col-sm-6">
+                <div class="box14">
+                {% if i.orientation == 'landscape' %}
+                <a href="{% url 'l_upload' i.id %}">
+                {% else %}
+                <a href="{% url 'upload' i.id %}">
+                {% endif %}
+                    <img src="{{ i.frame.url }}" alt="">
+                    <div class="box-content">
                     </div>
+                </a>
                 </div>
+            </div>
 {% endfor %}
             </div>
         </div>

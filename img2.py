@@ -1,11 +1,12 @@
 from PIL import Image, ExifTags, ImageOps
 
-img = Image.open('ball.png')
+img = Image.open('c.JPG')
+img = img.resize((344, 344))
 #fixed_image = ImageOps.exif_transpose(img)
 #fixed_image.save("ball.png", format="png")
-img_exif = img.getexif()
-image_orientation = img_exif[274]
-print(image_orientation)
+n_img = Image.new('RGB', (922, 557), color = (255, 255, 255))
+n_img.paste(img,(509,119))
+n_img.save("merged_image.png","PNG")
 #img_exif_dict = dict(img_exif)
     # { ... 42035: 'FUJIFILM', 42036: 'XF23mmF2 R WR', 42037: '75A14188' ... }
 #for key, val in img_exif_dict.items():
@@ -18,16 +19,6 @@ print(image_orientation)
 #    img=img.rotate(90, expand=True)
 #img.thumbnail((1000,1000), Image.ANTIALIAS)
 #img.save(output_fname, "JPEG")
-
-
-
-
-
-
-
-
-
-
 
 #from PIL import Image, ImageDraw, ImageFilter
 

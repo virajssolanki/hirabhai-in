@@ -10,10 +10,15 @@ class Merged(models.Model):
     def __str__(self):
         return f'{self.id} merged'
 
+O_CHOICES = (
+    ('square','square'),
+    ('landscape', 'landscape'),
+)
+
 class Frame(models.Model):
     frame = models.ImageField(default='d.png', upload_to='frames_pic')
     mask = models.ImageField(default='d.png', upload_to='mask_img')
-
+    orientation = models.CharField(max_length=30, default='', choices=O_CHOICES)
     def __str__(self):
         return f'{self.id} frame'
 
