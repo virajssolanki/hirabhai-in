@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Frame, Uimg, Merged
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 from .forms import UimgForm
 from urllib.request import urlopen
 import requests
@@ -30,9 +30,10 @@ def simple_upload(request, pk):
             #nl = '\n'
             #info= f'Name: {name}{nl}Village: {village}'
 
-            i = Image.open(img)
-            if i.mode != "RGB":
-                i.convert('RGB')
+            i_rgb = Image.open(img)
+            if i_rgb.mode != "RGB":
+                i_rgb.convert('RGB')
+            i = ImageOps.exif_transpose(i_rgb)
 
             frame_img_obj = Frame.objects.filter(id=pk).first().frame.file
             mask_img_obj = Frame.objects.filter(id=pk).first().mask.file
