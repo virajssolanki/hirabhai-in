@@ -12,7 +12,7 @@ import base64
 from base64 import b64encode
 
 def home(request):
-    frames = Frame.objects.all()
+    frames = Frame.objects.all().order_by('id')
     context = locals()
     return render(request, 'main/home.html', context)
 
