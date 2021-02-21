@@ -4,21 +4,20 @@ from PIL import Image, ImageFont, ImageDraw
       
 # creating a image object  
 image = Image.new('RGB', (922, 557), color = (255, 255, 255))
-  
+text = 'અમને તેની BEST MEDICINE'
 draw = ImageDraw.Draw(image)  
-  
-# specified font size 
-font = ImageFont.truetype('HindVadodara-Medium.ttf')  
-  
-text = 'અમને તેની જાણ થાય તે પહેલાં જE \n BEST MEDICINE'
-  
+fontsize = 20  # starting font size
+
+font = ImageFont.truetype('HindVadodara-Medium.ttf',fontsize)  
+#font = ImageFont.truetype("arial.ttf", fontsize)
+while font.getsize(text)[0] < 344:
+    # iterate until the text size is just larger than the criteria
+    fontsize += 1
+    font = ImageFont.truetype('HindVadodara-Medium.ttf',fontsize)
+
 # drawing text size 
-draw.text((681, 487), text, fill ="red", font = font, align ="center")  
-
+draw.text((509, 487), text, fill ="red", font = font, align ="center")  
 image.save('ball.png')
-
-
-
 
 #img = Image.open('c.JPG')
 #img = img.resize((344, 344))

@@ -96,7 +96,7 @@ def l_upload(request, pk):
             name = form.cleaned_data.get('name')
             village = form.cleaned_data.get('village')
             number = form.cleaned_data.get('number')
-            nl = '\n'
+            nl = ' , '
             info= f'નામ: {name}{nl}ગામ: {village}'
 
             i_rgb = Image.open(img)
@@ -119,8 +119,12 @@ def l_upload(request, pk):
 
             f = Image.composite(resized_image, f, m)
             draw = ImageDraw.Draw(f)
-            font = ImageFont.truetype(os.path.join(settings.BASE_DIR, 'HindVadodara-Medium.ttf'), 20)  
-            draw.text((590, 487), info, fill =(52, 51, 140), font = font, align ="center") 
+            fontsize = 20
+            font = ImageFont.truetype(os.path.join(settings.BASE_DIR, 'HindVadodara-Medium.ttf'), fontsize)
+            while font.getsize(info)[0] < 306:
+                fontsize += 1
+                font = ImageFont.truetype('HindVadodara-Medium.ttf',fontsize)  
+            draw.text((527, 497), info, fill =(52, 51, 140), font = font, align ="center") 
 
             thumb_io = BytesIO()
             f.save(thumb_io, format='PNG', quality=80)
