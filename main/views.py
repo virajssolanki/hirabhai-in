@@ -1,3 +1,5 @@
+import os
+from django.conf import settings
 from django.shortcuts import render
 from .models import Frame, Uimg, Merged
 from django.conf import settings
@@ -26,9 +28,9 @@ def simple_upload(request, pk):
             y = form.cleaned_data.get('y')
             w = form.cleaned_data.get('width')
             h = form.cleaned_data.get('height')
-            #name = form.cleaned_data.get('name')
-            #village = form.cleaned_data.get('village')
-            #number = form.cleaned_data.get('number')
+            name = form.cleaned_data.get('name')
+            village = form.cleaned_data.get('village')
+            number = form.cleaned_data.get('number')
             #nl = '\n'
             #info= f'Name: {name}{nl}Village: {village}'
 
@@ -57,7 +59,7 @@ def simple_upload(request, pk):
                 f.convert('RGB')
 
             #draw = ImageDraw.Draw(f)
-            #draw.text((5, 5), info ,(255,255,255))
+            #draw.text((51, 51), info ,(255,255,255))
 
             f = Image.composite(resized_image, f, m)
 
@@ -69,12 +71,12 @@ def simple_upload(request, pk):
             img_data = f"data:image/png;base64,{decoded_img}"
             #f_inmemory_uploaded_file = InMemoryUploadedFile(thumb_io, None, 'merge.png', 
             #                                 'image/png', thumb_io.tell(), None)
-            #f_instance = Merged()
+            f_instance = Merged()
             #f_instance.m_img = f_inmemory_uploaded_file
-            #f_instance.name = name
-            #f_instance.village = village
-            #f_instance.number = number
-            #f_instance.save()
+            f_instance.name = name
+            f_instance.village = village
+            f_instance.number = number
+            f_instance.save()
     else:
         form = UimgForm()
 
@@ -94,8 +96,8 @@ def l_upload(request, pk):
             name = form.cleaned_data.get('name')
             village = form.cleaned_data.get('village')
             number = form.cleaned_data.get('number')
-            #nl = '\n'
-            #info= f'Name: {name}{nl}Village: {village}'
+            nl = '\n'
+            info= f'નામ: {name}{nl}ગામ: {village}'
 
             i_rgb = Image.open(img)
             if i_rgb.mode != "RGB":
@@ -115,12 +117,11 @@ def l_upload(request, pk):
             if f.mode != "RGB":
                 f.convert('RGB')
 
-            #draw = ImageDraw.Draw(f)
-            #draw.text((5, 5), info ,(255,255,255))
-
             f = Image.composite(resized_image, f, m)
+            draw = ImageDraw.Draw(f)
+            font = ImageFont.truetype(os.path.join(settings.BASE_DIR, 'HindVadodara-Medium.ttf'), 20)  
+            draw.text((590, 487), info, fill =(52, 51, 140), font = font, align ="center") 
 
-            #f.paste(resized_image,(322,45))
             thumb_io = BytesIO()
             f.save(thumb_io, format='PNG', quality=80)
             thumb_io = BytesIO()
@@ -128,6 +129,13 @@ def l_upload(request, pk):
             encoded_img = base64.b64encode(thumb_io.getvalue())
             decoded_img = encoded_img.decode('utf-8')
             img_data = f"data:image/png;base64,{decoded_img}"
+
+            f_instance = Merged()
+            #f_instance.m_img = f_inmemory_uploaded_file
+            f_instance.name = name
+            f_instance.village = village
+            f_instance.number = number
+            f_instance.save()
     else:
         form = UimgForm()
 

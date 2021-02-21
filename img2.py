@@ -1,12 +1,32 @@
-from PIL import Image, ExifTags, ImageOps
+#from PIL import Image, ExifTags, ImageOps
+# Importing Image and ImageFont, ImageDraw module from PIL package  
+from PIL import Image, ImageFont, ImageDraw  
+      
+# creating a image object  
+image = Image.new('RGB', (922, 557), color = (255, 255, 255))
+  
+draw = ImageDraw.Draw(image)  
+  
+# specified font size 
+font = ImageFont.truetype('HindVadodara-Medium.ttf')  
+  
+text = 'અમને તેની જાણ થાય તે પહેલાં જE \n BEST MEDICINE'
+  
+# drawing text size 
+draw.text((681, 487), text, fill ="red", font = font, align ="center")  
 
-img = Image.open('c.JPG')
-img = img.resize((344, 344))
+image.save('ball.png')
+
+
+
+
+#img = Image.open('c.JPG')
+#img = img.resize((344, 344))
 #fixed_image = ImageOps.exif_transpose(img)
 #fixed_image.save("ball.png", format="png")
-n_img = Image.new('RGB', (922, 557), color = (255, 255, 255))
-n_img.paste(img,(509,119))
-n_img.save("merged_image.png","PNG")
+#n_img = Image.new('RGB', (922, 557), color = (255, 255, 255))
+#n_img.paste(img,(509,119))
+#n_img.save("merged_image.png","PNG")
 #img_exif_dict = dict(img_exif)
     # { ... 42035: 'FUJIFILM', 42036: 'XF23mmF2 R WR', 42037: '75A14188' ... }
 #for key, val in img_exif_dict.items():
