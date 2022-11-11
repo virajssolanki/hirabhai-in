@@ -22,13 +22,9 @@ SITES = (
     )
 
 
+from django.forms.widgets import NumberInput
 
 class CustomIntegerField(forms.IntegerField):
-    widget = NumberInput
-    default_error_messages = {
-        'invalid': _('Enter a whole number.'),
-    }
-    re_decimal = _lazy_re_compile(r'\.0*\s*$')
 
     def __init__(self, *, max_value=None, min_value=None, **kwargs):
         self.max_value, self.min_value = max_value, min_value
