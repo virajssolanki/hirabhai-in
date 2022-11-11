@@ -1,5 +1,6 @@
 from django import forms
 from .models import Uimg
+from django.core import validators
 
 
 SITES = (
@@ -20,19 +21,34 @@ SITES = (
     ('કીંદરવા ', 'કીંદરવા'),
     )
 
-default_error_messages = {
-    'max_length': 'Enter a valid 10 digit mobile number',
-    'min_length': 'Enter a valid 10 digit mobile number',
-    'required': 'This field is required',
-    'invalid': 'Enter a valid value'
-}
+
+
+class CustomIntegerField(forms.IntegerField):
+    widget = NumberInput
+    default_error_messages = {
+        'invalid': _('Enter a whole number.'),
+    }
+    re_decimal = _lazy_re_compile(r'\.0*\s*$')
+
+    def __init__(self, *, max_value=None, min_value=None, **kwargs):
+        self.max_value, self.min_value = max_value, min_value
+        if kwargs.get('localize') and self.widget == NumberInput:
+            # Localized number input is not well supported on most browsers
+            kwargs.setdefault('widget', super().widget)
+        super().__init__(**kwargs)
+
+        if max_value is not None:
+            self.validators.append(validators.MaxValueValidator(max_value, "Enter valid 10 digit mobile number."))
+        if min_value is not None:
+            self.validators.append(validators.MinValueValidator(min_value, "Enter valid 10 digit mobile number."))
+
 
 class UimgForm(forms.Form):
     name = forms.CharField(required=False)
     # village = forms.ChoiceField(choices = SITES) 
     village = forms.CharField(required=False) 
     # number = forms.CharField(required=False)
-    number = forms.IntegerField(min_value=1000000000, max_value=9999999999, error_messages=default_error_messages)
+    number = CustomIntegerField(min_value=1000000000, max_value=9999999999)
     img = forms.ImageField()
     x = forms.FloatField(widget=forms.HiddenInput())
     y = forms.FloatField(widget=forms.HiddenInput())
