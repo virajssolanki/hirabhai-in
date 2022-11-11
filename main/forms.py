@@ -22,8 +22,10 @@ SITES = (
 
 class UimgForm(forms.Form):
     name = forms.CharField(required=False)
-    village = forms.ChoiceField(choices = SITES) 
-    number = forms.CharField(required=False)
+    # village = forms.ChoiceField(choices = SITES) 
+    village = forms.CharField(required=False) 
+    # number = forms.CharField(required=False)
+    number = forms.IntegerField(min_value=1000000000, max_value=9999999999)
     img = forms.ImageField()
     x = forms.FloatField(widget=forms.HiddenInput())
     y = forms.FloatField(widget=forms.HiddenInput())
