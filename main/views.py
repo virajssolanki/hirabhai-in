@@ -117,7 +117,7 @@ def l_upload(request, pk):
             if f.mode != "RGB":
                 f.convert('RGB')
 
-            # f = Image.composite(resized_image, f, m)
+            f = Image.composite(resized_image, f, m)
             # draw = ImageDraw.Draw(f)
             # fontsize = 20
             # font = ImageFont.truetype(os.path.join(settings.BASE_DIR, 'HindVadodara-Medium.ttf'), fontsize)
