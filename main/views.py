@@ -112,19 +112,19 @@ def l_upload(request, pk):
             cropped_image = i.crop((x, y, w+x, h+y))
             new = cropped_image.resize((344, 344), Image.ANTIALIAS)
             resized_image = Image.new('RGB', (f.size), color = (255, 255, 255))
-            resized_image.paste(new, (119, 509))
+            resized_image.paste(new, (119, 119))
 
             if f.mode != "RGB":
                 f.convert('RGB')
 
-            f = Image.composite(resized_image, f, m)
-            draw = ImageDraw.Draw(f)
-            fontsize = 20
-            font = ImageFont.truetype(os.path.join(settings.BASE_DIR, 'HindVadodara-Medium.ttf'), fontsize)
-            while font.getsize(info)[0] < 306:
-                fontsize += 1
-                font = ImageFont.truetype('HindVadodara-Medium.ttf',fontsize)  
-            draw.text((527, 497), info, fill =(52, 51, 140), font = font, align ="center") 
+            # f = Image.composite(resized_image, f, m)
+            # draw = ImageDraw.Draw(f)
+            # fontsize = 20
+            # font = ImageFont.truetype(os.path.join(settings.BASE_DIR, 'HindVadodara-Medium.ttf'), fontsize)
+            # while font.getsize(info)[0] < 306:
+            #     fontsize += 1
+            #     font = ImageFont.truetype('HindVadodara-Medium.ttf',fontsize)  
+            # draw.text((527, 497), info, fill =(52, 51, 140), font = font, align ="center") 
 
             thumb_io = BytesIO()
             f.save(thumb_io, format='PNG', quality=80)
