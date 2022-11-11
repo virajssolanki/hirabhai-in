@@ -32,7 +32,7 @@ class UimgForm(forms.Form):
     # village = forms.ChoiceField(choices = SITES) 
     village = forms.CharField(required=False) 
     # number = forms.CharField(required=False)
-    number = forms.IntegerField(min_value=1000000000, max_value=9999999999, error_messages=my_default_errors)
+    number = forms.IntegerField(min_value=1000000000, max_value=9999999999, error_messages=default_error_messages)
     img = forms.ImageField()
     x = forms.FloatField(widget=forms.HiddenInput())
     y = forms.FloatField(widget=forms.HiddenInput())
