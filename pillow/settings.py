@@ -134,12 +134,12 @@ USE_TZ = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = '/var/www/mysite/assets/'
+#STATIC_ROOT = '/var/www/mysite/assets/'
 
 
 AWS_SECRET_ACCESS_KEY = 'aryW+GTrdT3pFz/HhvxpnehpbDw39319nWZlloUQ'
