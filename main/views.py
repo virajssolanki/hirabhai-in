@@ -110,9 +110,9 @@ def l_upload(request, pk):
             m = Image.open(mask_img_obj).convert('L').resize(f.size)
 
             cropped_image = i.crop((x, y, w+x, h+y))
-            new = cropped_image.resize((344, 344), Image.ANTIALIAS)
+            new = cropped_image.resize((358, 358), Image.ANTIALIAS)
             resized_image = Image.new('RGB', (f.size), color = (255, 255, 255))
-            resized_image.paste(new, (119, 119))
+            resized_image.paste(new, (77, 130))
 
             if f.mode != "RGB":
                 f.convert('RGB')
