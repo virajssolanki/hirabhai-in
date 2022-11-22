@@ -17,9 +17,16 @@
                 <div class="box14">
                 {% if i.orientation == 'landscape' %}
                 <a href="{% url 'l_upload' i.id %}">
-                {% else %}
+                {% endif %}
+
+                {% if i.orientation == 'square' %}
                 <a href="{% url 'upload' i.id %}">
                 {% endif %}
+
+                {% if i.orientation == 'square_with_small_image' %}
+                <a href="{% url 'square_with_small_image' i.id %}">
+                {% endif %}
+
                     <img src="{{ i.frame.url }}" alt="">
                     <div class="box-content">
                     </div>

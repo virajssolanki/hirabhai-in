@@ -18,6 +18,22 @@ def home(request):
     context = locals()
     return render(request, 'main/home.html', context)
 
+
+def inhance_mask(mask):    
+    inhance_mask_data = []
+    mask_data = mask.getdata()
+    for item in mask_data:
+        if item[0] in list(range(0, 100)):
+            inhance_mask_data.append((0, 0, 0))
+        else:
+            inhance_mask_data.append(item)
+
+    mask.putdata(inhance_mask_data)
+    mask = mask.convert('1')
+    return mask
+
+
+
 def simple_upload(request, pk):
     if request.method == 'POST':
         form = UimgForm(request.POST, request.FILES)
@@ -107,8 +123,8 @@ def l_upload(request, pk):
             frame_img_obj = Frame.objects.filter(id=pk).first().frame.file
             mask_img_obj = Frame.objects.filter(id=pk).first().mask.file
             f = Image.open(frame_img_obj)
-            m = Image.open(mask_img_obj).convert('L').resize(f.size)
-
+            m = Image.open(mask_img_obj).convert('RGB').resize(f.size)
+            m = inhance_mask(m)
             cropped_image = i.crop((x, y, w+x, h+y))
             new = cropped_image.resize((358, 358), Image.ANTIALIAS)
             resized_image = Image.new('RGB', (f.size), color = (255, 255, 255))
@@ -136,6 +152,64 @@ def l_upload(request, pk):
 
             f_instance = Merged()
             #f_instance.m_img = f_inmemory_uploaded_file
+            f_instance.name = name
+            f_instance.village = village
+            f_instance.number = number
+            f_instance.save()
+    else:
+        form = UimgForm()
+
+    frame_img = Frame.objects.filter(id=pk).first()
+    context = locals()
+    return render(request, 'main/upload.html', context)
+
+
+def square_with_small_image(request, pk):
+    if request.method == 'POST':
+        form = UimgForm(request.POST, request.FILES)
+        if form.is_valid():
+            files = request.FILES
+            img = files.get("img")
+            x = form.cleaned_data.get('x')
+            y = form.cleaned_data.get('y')
+            w = form.cleaned_data.get('width')
+            h = form.cleaned_data.get('height')
+            name = form.cleaned_data.get('name')
+            village = form.cleaned_data.get('village')
+            number = form.cleaned_data.get('number')
+            nl = ' , '
+            info= f'નામ: {name}{nl}ગામ: {village}'
+
+            i_rgb = Image.open(img)
+            if i_rgb.mode != "RGB":
+                i_rgb.convert('RGB')
+            i = ImageOps.exif_transpose(i_rgb)
+
+            frame_img_obj = Frame.objects.filter(id=pk).first().frame.file
+            mask_img_obj = Frame.objects.filter(id=pk).first().mask.file
+            f = Image.open(frame_img_obj)
+            m = Image.open(mask_img_obj).convert('RGB').resize(f.size)
+            m = inhance_mask(m)
+
+            cropped_image = i.crop((x, y, w+x, h+y))
+            new = cropped_image.resize((390, 390), Image.ANTIALIAS)
+            resized_image = Image.new('RGB', (f.size), color = (255, 255, 255))
+            resized_image.paste(new, (60, 370))
+
+            if f.mode != "RGB":
+                f.convert('RGB')
+
+            #f = Image.composite(resized_image, f, m)
+
+            f = Image.composite(resized_image, f, m)
+
+            thumb_io = BytesIO()
+            f.save(thumb_io, format='PNG', quality=80)
+            encoded_img = base64.b64encode(thumb_io.getvalue())
+            decoded_img = encoded_img.decode('utf-8')
+            img_data = f"data:image/png;base64,{decoded_img}"
+
+            f_instance = Merged()
             f_instance.name = name
             f_instance.village = village
             f_instance.number = number

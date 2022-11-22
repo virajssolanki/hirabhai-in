@@ -13,6 +13,7 @@ class Merged(models.Model):
 O_CHOICES = (
     ('square','square'),
     ('landscape', 'landscape'),
+    ('square_with_small_image', 'square_with_small_image'),
 )
 
 class Frame(models.Model):
