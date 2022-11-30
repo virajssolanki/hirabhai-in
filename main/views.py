@@ -99,6 +99,7 @@ def simple_upload(request, pk):
     context = locals()
     return render(request, 'main/upload.html', context)
 
+
 def l_upload(request, pk):
     if request.method == 'POST':
         form = UimgForm(request.POST, request.FILES)
@@ -210,6 +211,71 @@ def square_with_small_image(request, pk):
             img_data = f"data:image/png;base64,{decoded_img}"
 
             f_instance = Merged()
+            f_instance.name = name
+            f_instance.village = village
+            f_instance.number = number
+            f_instance.save()
+    else:
+        form = UimgForm()
+
+    frame_img = Frame.objects.filter(id=pk).first()
+    context = locals()
+    return render(request, 'main/upload.html', context)
+
+
+
+def vertical_image(request, pk):
+    print('vertical bitch')
+    if request.method == 'POST':
+        form = UimgForm(request.POST, request.FILES)
+        if form.is_valid():
+            files = request.FILES
+            img = files.get("img")
+            x = form.cleaned_data.get('x')
+            y = form.cleaned_data.get('y')
+            w = form.cleaned_data.get('width')
+            h = form.cleaned_data.get('height')
+            name = form.cleaned_data.get('name')
+            village = form.cleaned_data.get('village')
+            number = form.cleaned_data.get('number')
+            nl = ' , '
+            info= f'નામ: {name}{nl}ગામ: {village}'
+
+            i_rgb = Image.open(img)
+            if i_rgb.mode != "RGB":
+                i_rgb.convert('RGB')
+            i = ImageOps.exif_transpose(i_rgb)
+
+            frame_img_obj = Frame.objects.filter(id=pk).first().frame.file
+            mask_img_obj = Frame.objects.filter(id=pk).first().mask.file
+            f = Image.open(frame_img_obj)
+            m = Image.open(mask_img_obj).convert('RGB').resize(f.size)
+            m = inhance_mask(m)
+            cropped_image = i.crop((x, y, w+x, h+y))
+            new = cropped_image.resize((570, 570), Image.ANTIALIAS)
+            resized_image = Image.new('RGB', (f.size), color = (255, 255, 255))
+            resized_image.paste(new, (70, 300))
+
+            if f.mode != "RGB":
+                f.convert('RGB')
+
+            f = Image.composite(resized_image, f, m)
+            # draw = ImageDraw.Draw(f)
+            # fontsize = 20
+            # font = ImageFont.truetype(os.path.join(settings.BASE_DIR, 'HindVadodara-Medium.ttf'), fontsize)
+            # while font.getsize(info)[0] < 306:
+            #     fontsize += 1
+            #     font = ImageFont.truetype('HindVadodara-Medium.ttf',fontsize)  
+            # draw.text((527, 497), info, fill =(52, 51, 140), font = font, align ="center") 
+
+            thumb_io = BytesIO()
+            f.save(thumb_io, format='PNG', quality=80)
+            encoded_img = base64.b64encode(thumb_io.getvalue())
+            decoded_img = encoded_img.decode('utf-8')
+            img_data = f"data:image/png;base64,{decoded_img}"
+
+            f_instance = Merged()
+            #f_instance.m_img = f_inmemory_uploaded_file
             f_instance.name = name
             f_instance.village = village
             f_instance.number = number

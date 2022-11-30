@@ -27,6 +27,12 @@
                 <a href="{% url 'square_with_small_image' i.id %}">
                 {% endif %}
 
+
+                {% if i.orientation == 'vertical' %}
+                <a href="{% url 'vertical_image' i.id %}">
+                {% endif %}
+
+
                     <img src="{{ i.frame.url }}" alt="">
                     <div class="box-content">
                     </div>

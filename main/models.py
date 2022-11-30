@@ -14,6 +14,7 @@ O_CHOICES = (
     ('square','square'),
     ('landscape', 'landscape'),
     ('square_with_small_image', 'square_with_small_image'),
+    ('vertical', 'vertical'),
 )
 
 class Frame(models.Model):

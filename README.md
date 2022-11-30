@@ -14,7 +14,3 @@ admin
 
 virazssolanki@gmail.com
 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
-
-
-8 hours 
-4 hours 
