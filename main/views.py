@@ -252,9 +252,9 @@ def vertical_image(request, pk):
             m = Image.open(mask_img_obj).convert('RGB').resize(f.size)
             m = inhance_mask(m)
             cropped_image = i.crop((x, y, w+x, h+y))
-            new = cropped_image.resize((570, 570), Image.ANTIALIAS)
+            new = cropped_image.resize((600, 600), Image.ANTIALIAS)
             resized_image = Image.new('RGB', (f.size), color = (255, 255, 255))
-            resized_image.paste(new, (70, 300))
+            resized_image.paste(new, (80, 320))
 
             if f.mode != "RGB":
                 f.convert('RGB')
